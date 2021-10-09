@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, SafeAreaView, View, FlatList } from 'react-native';
-import Header from '../components/Header';
-
+import { StyleSheet, Text, SafeAreaView, View, FlatList, Pressable } from 'react-native';
 
 export default function Home({ navigation }) {
     const [list, setList] = useState([
@@ -11,12 +9,20 @@ export default function Home({ navigation }) {
     ])
     return (
         <SafeAreaView style={styles.container}>
-            <Header />
-            <View style={styles.content}>
+            <Text style={{ fontSize: 40, fontWeight: 'bold', paddingTop: 30 }}>Todos</Text>
+            <View style={{ flex: 1, alignItems: 'flex-start', minWidth: "100%", paddingLeft: 10 }}>
                 <FlatList
                     data={list}
+                    keyExtractor={(item) => item.key.toString()}
                     renderItem={({ item }) => <Text>{item.todo}</Text>} />
             </View>
+            <Pressable
+                onPress={() => navigation.navigate('NewTodo')}
+            >
+                <Text>
+                    Add a new todo
+                </Text>
+            </Pressable>
         </SafeAreaView>
     );
 }
@@ -25,9 +31,14 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
+        width: "100%",
+        alignItems: 'center'
     },
     content: {
-        padding: 40
+        flex: 1,
+        alignItems: 'center',
+        paddingTop: 30,
+        width: "100%"
     },
     list: {
         marginTop: 20
