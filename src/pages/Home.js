@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, SafeAreaView, View, FlatList, Pressable } from 'react-native';
+import { Colors } from '../config/colors.json'
 
 export default function Home({ navigation }) {
     const [list, setList] = useState([
@@ -17,9 +18,11 @@ export default function Home({ navigation }) {
                     renderItem={({ item }) => <Text>{item.todo}</Text>} />
             </View>
             <Pressable
+                style={styles.button}
+                color={Colors.mainColor}
                 onPress={() => navigation.navigate('NewTodo')}
             >
-                <Text>
+                <Text style={{ color: Colors.white, fontSize: 22, fontWeight: "700", fontFamily: "Roboto" }}>
                     Add a new todo
                 </Text>
             </Pressable>
@@ -39,6 +42,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingTop: 30,
         width: "100%"
+    },
+    button: {
+        width: "100%",
+        maxHeight: "7%",
+        flex: 1,
+        justifyContent: "center",
+        alignItems: 'center',
+        backgroundColor: Colors.mainColor,
     },
     list: {
         marginTop: 20
