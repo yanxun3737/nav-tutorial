@@ -2,7 +2,7 @@
     "Colors": {
         "mainColor": "#9615DB",
         "seconddaryColor": "#555759",
-        "white": "#D2D3D3",
+        "white": "#fff",
         "black": "#2D3032"
     }
 }

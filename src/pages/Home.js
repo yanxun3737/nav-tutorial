@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, SafeAreaView, View, FlatList, Pressable } from 'react-native';
 import { Colors } from '../config/colors.json'
+import TextList from '../components/TextList';
 
 export default function Home({ navigation }) {
     const [list, setList] = useState([
@@ -8,14 +9,21 @@ export default function Home({ navigation }) {
         { todo: 'Something2', key: 2 },
         { todo: 'Something3', key: 3 },
     ])
+
+    const pressHandler = (key) => {
+        setList((prevTodos) => {
+            return prevTodos.filter((list) => list.key != key)
+        })
+    }
     return (
         <SafeAreaView style={styles.container}>
             <Text style={{ fontSize: 40, fontWeight: 'bold', paddingTop: 30 }}>Todos</Text>
-            <View style={{ flex: 1, alignItems: 'flex-start', minWidth: "100%", paddingLeft: 10 }}>
+            <View style={{ flex: 1, alignItems: 'flex-start', minWidth: "100%", padding: 10 }}>
                 <FlatList
+                    style={{ minWidth: "100%" }}
                     data={list}
                     keyExtractor={(item) => item.key.toString()}
-                    renderItem={({ item }) => <Text>{item.todo}</Text>} />
+                    renderItem={({ item }) => <TextList item={item} onPressHandler={pressHandler} />} />
             </View>
             <Pressable
                 style={styles.button}
