@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, SafeAreaView, View, FlatList, Pressable } from 'react-native';
 import { Colors } from '../config/colors.json'
 import TextList from '../components/TextList';
+import NewTodo from '../components/NewTodo';
 
 export default function Home({ navigation }) {
     const [list, setList] = useState([
@@ -17,23 +18,17 @@ export default function Home({ navigation }) {
     }
     return (
         <SafeAreaView style={styles.container}>
-            <Text style={{ fontSize: 40, fontWeight: 'bold', paddingTop: 30 }}>Todos</Text>
-            <View style={{ flex: 1, alignItems: 'flex-start', minWidth: "100%", padding: 10 }}>
-                <FlatList
-                    style={{ minWidth: "100%" }}
-                    data={list}
-                    keyExtractor={(item) => item.key.toString()}
-                    renderItem={({ item }) => <TextList item={item} onPressHandler={pressHandler} />} />
+            <View style={styles.content}>
+                <Text style={styles.title}>Todos</Text>
+                <View style={{ flex: 1, alignItems: "flex-start", minWidth: '100%' }}>
+                    <FlatList
+                        style={{ minWidth: '100%' }}
+                        data={list}
+                        keyExtractor={(list) => list.key.toString()}
+                        renderItem={({ item }) => <TextList item={item} onPressHandler={pressHandler} />} />
+                </View>
             </View>
-            <Pressable
-                style={styles.button}
-                color={Colors.mainColor}
-                onPress={() => navigation.navigate('NewTodo')}
-            >
-                <Text style={{ color: Colors.white, fontSize: 22, fontWeight: "700", fontFamily: "Roboto" }}>
-                    Add a new todo
-                </Text>
-            </Pressable>
+            <NewTodo />
         </SafeAreaView>
     );
 }
@@ -42,24 +37,35 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
-        width: "100%",
-        alignItems: 'center'
     },
     content: {
+        padding: 40,
         flex: 1,
-        alignItems: 'center',
-        paddingTop: 30,
-        width: "100%"
+        alignItems: 'center'
+    },
+    textinput: {
+        borderRadius: 10,
+        borderWidth: 2,
+        borderColor: Colors.mainColor,
+        padding: 10
+    },
+    list: {
+        marginTop: 20
+    },
+    title: {
+        fontSize: 40,
+        fontWeight: 'bold',
     },
     button: {
-        width: "100%",
         maxHeight: "7%",
         flex: 1,
         justifyContent: "center",
         alignItems: 'center',
         backgroundColor: Colors.mainColor,
+
     },
-    list: {
-        marginTop: 20
+    text: {
+        fontSize: 20,
+        fontWeight: "600",
     }
 });
