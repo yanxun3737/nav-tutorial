@@ -1,17 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, TextInput, Pressable, StyleSheet } from 'react-native'
 import Plus from '../svg/Plus.svg'
 
 const NewTodo = () => {
+
+    const [text, setText] = useState('')
+
+    const onChangeTextHandler = (val) => {
+        setText(val)
+    }
     return (
         <View style={styles.container}>
-            <View style={styles.textinput}>
+            <View style={{ flex: 1, justifyContent: "center", alignItems: "center", minWidth: "70%", marginHorizontal: 10 }}>
                 <TextInput
-                    placeholder='Add new todo'
+                    style={{ borderWidth: 1, borderRadius: 100, padding: 15, width: "100%" }}
+                    placeholder="Add new todo"
+                    onChangeText={onChangeTextHandler}
                 />
             </View>
-            <Pressable style={{ flex: 1, justifyContent: "center", alignItems: "center", }}>
-                <Plus style={{ borderWidth: 1, borderRadius: 100, padding: 10 }} width={30} height={30} />
+            <Pressable style={{ flex: 1, justifyContent: "center", alignItems: "center", marginHorizontal: 20 }}>
+                <View style={{ borderWidth: 1, borderRadius: 100, padding: 15 }}>
+                    <Plus width={30} height={30} />
+                </View>
             </Pressable>
         </View>
     )
@@ -27,10 +37,12 @@ const styles = StyleSheet.create({
         justifyContent: "space-between"
     },
     textinput: {
-        width: "70%",
+        padding: 10,
         borderRadius: 100,
         borderWidth: 1,
-        padding: 10,
-        margin: 20
+        minHeight: "12%"
+    },
+    text: {
+        width: "70%",
     }
 })
