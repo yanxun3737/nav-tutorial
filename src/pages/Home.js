@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, SafeAreaView, View, FlatList, Pressable } from 'react-native';
+import { StyleSheet, Text, SafeAreaView, View, FlatList, Alert } from 'react-native';
 import { Colors } from '../config/colors.json'
 import TextList from '../components/TextList';
 import NewTodo from '../components/NewTodo';
@@ -16,6 +16,18 @@ export default function Home({ navigation }) {
             return prevTodos.filter((list) => list.key != key)
         })
     }
+
+    const onSubmitHandler = (text) => {
+
+        if (text.length > 0) {
+            setList((prevTodos) => {
+                return [{ todo: text, key: Math.random().toString() }, ...prevTodos]
+            })
+        } else {
+            Alert.alert("Fuck You", "Pls enter something before you submit", [{ text: "ok, fine" }])
+        }
+
+    }
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.content}>
@@ -28,7 +40,7 @@ export default function Home({ navigation }) {
                         renderItem={({ item }) => <TextList item={item} onPressHandler={pressHandler} />} />
                 </View>
             </View>
-            <NewTodo />
+            <NewTodo submitHandler={onSubmitHandler} />
         </SafeAreaView>
     );
 }

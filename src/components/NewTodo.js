@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { View, TextInput, Pressable, StyleSheet } from 'react-native'
 import Plus from '../svg/Plus.svg'
 
-const NewTodo = () => {
+const NewTodo = ({ submitHandler }) => {
 
     const [text, setText] = useState('')
 
@@ -18,7 +18,9 @@ const NewTodo = () => {
                     onChangeText={onChangeTextHandler}
                 />
             </View>
-            <Pressable style={{ flex: 1, justifyContent: "center", alignItems: "center", marginHorizontal: 20 }}>
+            <Pressable style={{ flex: 1, justifyContent: "center", alignItems: "center", marginHorizontal: 20 }}
+                onPress={() => submitHandler(text)}
+            >
                 <View style={{ borderWidth: 1, borderRadius: 100, padding: 15 }}>
                     <Plus width={30} height={30} />
                 </View>
